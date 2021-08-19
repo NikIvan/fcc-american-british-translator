@@ -30,7 +30,8 @@ class Translator {
     const timeRegex = /\b\d{1,2}:\d{1,2}\b/g;
 
     res = res.replace(timeRegex, (match) => {
-      return match.replace(':', '.');
+      const replaced = match.replace(':', '.');
+      return `<span class="highlight">${replaced}</span>`;
     });
 
     return res;
@@ -49,7 +50,8 @@ class Translator {
     const timeRegex = /\b\d{1,2}(.)\d{1,2}\b/g;
 
     res = res.replace(timeRegex, (match) => {
-      return match.replace('.', ':');
+      const replaced = match.replace('.', ':');
+      return `<span class="highlight">${replaced}</span>`;
     });
 
     return res;
@@ -75,7 +77,6 @@ function escapeDot(acc, [key, value]) {
 function modifyReplacer(modifications) {
   return (acc, [key, value]) => {
     return modifications.reduce((args, modification) => {
-      console.dir({args, modification});
       return modification.apply(null, args);
     }, [acc, [key, value]]);
   }
@@ -84,9 +85,9 @@ function modifyReplacer(modifications) {
 function replacer(acc, [key, value]) {
   const regex = new RegExp(`\\b${key}\\b`, 'ig');
 
-  if (key.includes('.')) {
-    console.dir({regex, acc, key});
-  }
+  // if (key.includes('.')) {
+  //   console.dir({regex, acc, key});
+  // }
 
   return acc.replace(regex, (match) => {
     const charCodeZero = match.charCodeAt(0);
@@ -97,11 +98,11 @@ function replacer(acc, [key, value]) {
       result = result[0].toUpperCase() + result.slice(1);
     }
 
-    if (key.includes('.')) {
-      console.dir({match, result});
-    }
+    // if (key.includes('.')) {
+    //   console.dir({match, result});
+    // }
 
-    return result;
+    return `<span class="highlight">${result}</span>`;
   });
 }
 
