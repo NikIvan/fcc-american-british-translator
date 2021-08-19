@@ -1,4 +1,5 @@
 const chai = require('chai');
+const {beforeEach} = require('mocha');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
 const server = require('../server.js');
@@ -10,6 +11,10 @@ let Translator = require('../components/translator.js');
 suite('Functional Tests', () => {
   const textToTranslateToUs = 'I spent the bank holiday at the funfair.';
   const translatedToUs = 'I spent the <span class="highlight">public holiday</span> at the <span class="highlight">carnival</span>.';
+
+  beforeEach((done) => {
+    setTimeout(done, 100);
+  });
 
   test('Translation with text and locale fields: POST request to /api/translate', (done) => {
     const input = {

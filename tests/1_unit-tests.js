@@ -1,10 +1,15 @@
 const chai = require('chai');
+const {beforeEach} = require('mocha');
 const assert = chai.assert;
 
 const Translator = require('../components/translator.js');
 
 suite('Unit Tests', () => {
   const translator = new Translator();
+
+  beforeEach((done) => {
+    setTimeout(done, 100);
+  });
 
   test('Translate Mangoes are my favorite fruit. to British English', () => {
     const text = 'Mangoes are my favorite fruit.';
