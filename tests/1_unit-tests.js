@@ -22,7 +22,6 @@ suite('Unit Tests', () => {
   test('Translate I ate yogurt for breakfast. to British English', () => {
     const text = 'I ate yogurt for breakfast.';
     const expected = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
-
     const actual = translator.translate(text, Translator.LOCALE_US_TO_GB);
 
     assert.strictEqual(actual, expected);
@@ -126,7 +125,7 @@ suite('Unit Tests', () => {
 
   test('Translate I had a bicky then went to the chippy. to American English', () => {
     const text = 'I had a bicky then went to the chippy.';
-    const expected = 'I had a <span class="highlight">cookie</span> then went to the <span class="highlight">fish-and-chip</span> shop.';
+    const expected = 'I had a <span class="highlight">cookie</span> then went to the <span class="highlight">fish-and-chip shop</span>.';
     const actual = translator.translate(text, Translator.LOCALE_GB_TO_US);
 
     assert.strictEqual(actual, expected);
@@ -172,20 +171,36 @@ suite('Unit Tests', () => {
     assert.strictEqual(actual, expected);
   });
 
-  // TODO: Implement highlight tests
+  // TODO: Check highlight tests
   test('Highlight translation in Mangoes are my favorite fruit.', () => {
-    assert.fail();
+    const text = 'Mangoes are my favorite fruit.';
+    const expected = 'Mangoes are my <span class="highlight">favourite</span> fruit.';
+    const actual = translator.translate(text, Translator.LOCALE_US_TO_GB);
+
+    assert.strictEqual(actual, expected);
   });
 
   test('Highlight translation in I ate yogurt for breakfast.', () => {
-    assert.fail();
+    const text = 'I ate yogurt for breakfast.';
+    const expected = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
+    const actual = translator.translate(text, Translator.LOCALE_US_TO_GB);
+
+    assert.strictEqual(actual, expected);
   });
 
   test('Highlight translation in We watched the footie match for a while.', () => {
-    assert.fail();
+    const text = 'We watched the footie match for a while.';
+    const expected = 'We watched the <span class="highlight">soccer</span> match for a while.';
+    const actual = translator.translate(text, Translator.LOCALE_GB_TO_US);
+
+    assert.strictEqual(actual, expected);
   });
 
   test('Highlight translation in Paracetamol takes up to an hour to work.', () => {
-    assert.fail();
+    const text = 'Paracetamol takes up to an hour to work.';
+    const expected = '<span class="highlight">Tylenol</span> takes up to an hour to work.';
+    const actual = translator.translate(text, Translator.LOCALE_GB_TO_US);
+
+    assert.strictEqual(actual, expected);
   });
 });
