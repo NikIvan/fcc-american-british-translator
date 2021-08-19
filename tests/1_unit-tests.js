@@ -4,7 +4,6 @@ const assert = chai.assert;
 const Translator = require('../components/translator.js');
 
 suite('Unit Tests', () => {
-  // TODO: Implement following tests:
   const translator = new Translator();
 
   test('Translate Mangoes are my favorite fruit. to British English', () => {
@@ -168,6 +167,7 @@ suite('Unit Tests', () => {
     assert.strictEqual(actual, expected);
   });
 
+  // TODO: Implement highlight tests
   test('Highlight translation in Mangoes are my favorite fruit.', () => {
     assert.fail();
   });
