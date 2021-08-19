@@ -83,24 +83,23 @@ function modifyReplacer(modifications) {
 }
 
 function replacer(acc, [key, value]) {
-  const regex = new RegExp(`\\b${key}\\b`, 'ig');
+  let pattern;
 
-  // if (key.includes('.')) {
-  //   console.dir({regex, acc, key});
-  // }
+  if (key.indexOf('.') > - 1) {
+    pattern = `\\b${key}(?=\\s)`;
+  } else {
+    pattern = `(?<!-)\\b${key}\\b`;
+  }
+
+  const regex = new RegExp(pattern, 'ig');
 
   return acc.replace(regex, (match) => {
     const charCodeZero = match.charCodeAt(0);
     let result = value;
 
-
     if (charCodeZero >= 65 && charCodeZero <= 90) {
       result = result[0].toUpperCase() + result.slice(1);
     }
-
-    // if (key.includes('.')) {
-    //   console.dir({match, result});
-    // }
 
     return `<span class="highlight">${result}</span>`;
   });
