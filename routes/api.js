@@ -15,7 +15,7 @@ module.exports = function (app) {
       try {
         input = await validateTranslate(req.body);
       } catch (err) {
-        return res.status(400).send({error: err.message});
+        return res.status(400).json({error: err.message});
       }
 
       const {text, locale} = input;
@@ -23,9 +23,13 @@ module.exports = function (app) {
       try {
         translation = translator.translate(text, locale);
       } catch (err) {
-        return res.status(500).send({error: 'Something went wrong'});
+        return res.status(500).json({error: 'Something went wrong'});
       }
 
-      return res.json({translation});
+      if (translation === text) {
+        translation = 'Everything looks good to me!';
+      }
+
+      return res.json({text, translation});
     });
 };

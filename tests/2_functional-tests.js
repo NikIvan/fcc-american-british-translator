@@ -23,7 +23,9 @@ suite('Functional Tests', () => {
       .end((req, res) => {
         assert.strictEqual(res.status, 200);
         assert.property(res.body, 'translation');
+        assert.property(res.body, 'text');
         assert.strictEqual(res.body.translation, translatedToUs);
+        assert.strictEqual(res.body.text, textToTranslateToUs);
 
         done();
       });
@@ -41,6 +43,7 @@ suite('Functional Tests', () => {
       .end((req, res) => {
         assert.strictEqual(res.status, 400);
         assert.property(res.body, 'error');
+        assert.strictEqual(res.body.error, 'Invalid value for locale field');
 
         done();
       });
@@ -57,6 +60,7 @@ suite('Functional Tests', () => {
       .end((req, res) => {
         assert.strictEqual(res.status, 400);
         assert.property(res.body, 'error');
+        assert.strictEqual(res.body.error, 'Required field(s) missing');
 
         done();
       });
@@ -73,6 +77,7 @@ suite('Functional Tests', () => {
       .end((req, res) => {
         assert.strictEqual(res.status, 400);
         assert.property(res.body, 'error');
+        assert.strictEqual(res.body.error, 'Required field(s) missing');
 
         done();
       });
@@ -88,9 +93,9 @@ suite('Functional Tests', () => {
       .post('/api/translate')
       .send(input)
       .end((req, res) => {
-        assert.strictEqual(res.status, 200);
-        assert.property(res.body, 'translation');
-        assert.strictEqual(res.body.translation, input.text);
+        assert.strictEqual(res.status, 400);
+        assert.property(res.body, 'error');
+        assert.strictEqual(res.body.error, 'No text to translate');
 
         done();
       });
@@ -108,7 +113,7 @@ suite('Functional Tests', () => {
       .end((req, res) => {
         assert.strictEqual(res.status, 200);
         assert.property(res.body, 'translation');
-        assert.strictEqual(res.body.translation, input.text);
+        assert.strictEqual(res.body.translation, 'Everything looks good to me!');
 
         done();
       });
